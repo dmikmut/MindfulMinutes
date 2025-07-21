@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindfulMinutes</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f5f7fa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    h1 {
+      color: #3a3a3a;
+    }
+    .controls, .duration {
+      margin: 1rem 0;
+    }
+    button {
+      margin: 0.3rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #7ec8c3;
+      color: white;
+      cursor: pointer;
+    }
+    .player {
+      margin-top: 2rem;
+      width: 100%;
+      max-width: 400px;
+      background: white;
+      padding: 1rem;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    input[type=range] {
+      width: 80%;
+    }
+  </style>
+</head>
+<body>
+  <h1>MindfulMinutes</h1>
+  <p>Pick your meditation type and duration, then press Start.</p>
+
+  <div class="controls">
+    <h3>Meditation Type</h3>
+    <button onclick="setType('Focus')">Focus</button>
+    <button onclick="setType('Relax')">Relax</button>
+    <button onclick="setType('Sleep')">Sleep</button>
+  </div>
+
+  <div class="duration">
+    <h3>Duration: <span id="durationDisplay">10</span> min</h3>
+    <input type="range" id="duration" min="5" max="30" step="5" value="10" onchange="updateDuration(this.value)" />
+  </div>
+
+  <div class="player">
+    <button onclick="startSession()">Start Session</button>
+    <p id="status"></p>
+  </div>
+
+  <script>
+    let selectedType = null;
+    let selectedDuration = 10;
+
+    function setType(type) {
+      selectedType = type;
+      document.getElementById('status').textContent = `Selected: ${type}`;
+    }
+
+    function updateDuration(val) {
+      selectedDuration = val;
+      document.getElementById('durationDisplay').textContent = val;
+    }
+
+    function startSession() {
+      if (!selectedType) {
+        document.getElementById('status').textContent = 'Please select a meditation type.';
+        return;
+      }
+      document.getElementById('status').textContent = `Starting ${selectedType} session for ${selectedDuration} minutes...`;
+      // Here you would play audio or integrate real media playback logic
+    }
+  </script>
+</body>
+</html>
